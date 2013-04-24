@@ -36,6 +36,8 @@ I'm currently using my own fork of WebBlocks.  This defines an adapter for CCLE.
 
 ```bash
 git clone git@github.com:alroman/WebBlocks.git blocks
+cd blocks
+git submodule init && git submodule update
 ```
 
 Then get this repo:
