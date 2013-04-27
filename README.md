@@ -1,18 +1,11 @@
-blocks-config
-=============
+Configuring WebBlocks for CCLE Moodle
+=====================================
 
-WebBlocks configuration files.  This is assuming you have Ruby and node.js installed.
+## Meeting basic requirements
 
-## Rakefile
-Standard build file.  Defines the tasks that WebBlocks can run.
+You will need Ruby and Nodejs on your system to make this work.   
 
-## Rakefile-config.rb
-Lets you turn on/off various build options for WebBlocks.
-
-## Guardfile
-For use with guard-rake (https://github.com/rubyist/guard-rake)
-
-## Project folder structure
+## The project folder structure
 This is the assumed folder structure.  This is set up so that the build happens outside the `moodle` directory.  
 
 Folder descriptions
@@ -30,7 +23,48 @@ Folder descriptions
     Rakefile-config.rb
 ```
 
-## Setting it up
+### Rakefile
+Standard build file.  Defines the tasks that WebBlocks can run.  You will generally never have to change this file unless WebBlocks creates new build options.
+
+### Rakefile-config.rb
+Lets you turn on/off various build options for WebBlocks.  The most important one to know for now is the debug flag.  This flag will compile the CSS as human redable.  It will also print references to the SASS files that created the CSS rules.
+
+```ruby
+# Enable debug
+WebBlocks.config[:build][:debug] = true
+```
+
+Most of the default packages are turned off, but we might eventually need them.  For now, understand the basic loading configuration:
+
+```ruby
+# Scripts we want to include
+WebBlocks.config[:build][:packages] = []
+# WebBlocks.config[:build][:packages] << :jquery
+# WebBlocks.config[:build][:packages] << :lettering
+# WebBlocks.config[:build][:packages] << :modernizr
+# WebBlocks.config[:build][:packages] << :respond
+# WebBlocks.config[:build][:packages] << :selectivizr
+
+WebBlocks.config[:src][:adapter] = 'ccle'
+# WebBlocks.config[:src][:adapter] = false
+```
+
+### Guardfile
+For use with guard-rake (https://github.com/rubyist/guard-rake).  Once you have installed guard-rake (usually with `gem install guard-rake`), you can have it start monitoring your files like so:
+
+```bash
+guard start
+```
+
+Now, whenever you save changes to a `*.scss` file, it will trigger a `rake build_css` command via guard.  If you write bad SASS, guard will fail the build.  After you fix your SASS, you can trigger guard again by pressing `<enter>` at the prompt.
+
+To exit guard, in the guard prompt type:
+```bash
+guard(main)> exit
+```
+
+
+## Setting up the project
 
 I'm currently using my own fork of WebBlocks.  This defines an adapter for CCLE.  To checkout that repo run this in your `project` folder:
 
@@ -38,6 +72,7 @@ I'm currently using my own fork of WebBlocks.  This defines an adapter for CCLE.
 git clone git@github.com:alroman/WebBlocks.git blocks
 cd blocks
 git submodule init && git submodule update
+cd -
 ```
 
 Then get this repo:
@@ -53,3 +88,11 @@ ln -s blocks-config/Rakefile Rakefile
 ln -s blocks-config/Rakefile-config.rb Rakefile-config.rb
 ln -s blocks-config/Guardfile Guardfile
 ```
+
+After you have all your files in order, run `rake` to make sure WebBlocks sets up and downloads all your dependencies:
+
+```bash
+rake build
+```
+
+If all goes well, you will WebBlocks successfully building the project.
