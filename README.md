@@ -3,7 +3,39 @@ Configuring WebBlocks for CCLE Moodle
 
 ## Meeting basic requirements
 
-You will need Ruby and Nodejs on your system to make this work.   
+You will need Ruby and Nodejs on your system to make this work. 
+
+### Ruby
+Currently tested using Ruby 1.9.3p327.  You can probably install this directly from your system repo, but avoid dependency issues with the different version of Ruby, it's a good idea to install Ruby via RVM (https://rvm.io/).  RVM will install itself in your home directory (in `~/.rvm`) and configure all dependencies automatically.  The easy way to install it is with a single command (from: https://rvm.io/rvm/install/ ):
+
+```sh
+$ \curl -L https://get.rvm.io | bash -s stable --ruby
+```
+
+Follow the setup instructions and modify your `.bashrc` as directed.
+
+#### RVM with rvmrc
+RVM allows you to setup projects with different version of Ruby.  To track these dependencies you can use an `.rvmrc` project file.  RVM can do this for you automatically.  If you're developing from vagrant image, then go to your `~/projects/moodle20/` folder and run this command:
+
+```sh
+$ rvm --rvmc --create 1.9.3@moodle-sass
+```
+
+That will use the dependencies from Ruby 1.9.3 for that particular project only.  The next time you revisit that folder, you will probably be prompted by RVM for permission to use the ```.rvmrc``` file.  
+
+### Node.js
+
+This also can be installed from your repo, or you can build it directly from source.  For Ubuntu users, this is the recommended way:
+
+```sh
+sudo apt-get update
+sudo apt-get install python-software-properties python g++ make
+sudo add-apt-repository ppa:chris-lea/node.js
+sudo apt-get update
+sudo apt-get install nodejs
+```
+
+That will add the `chris-lea/node.js` repo and install `node` and `npm` in your system.  
 
 ## The project folder structure
 This is the assumed folder structure.  This is set up so that the build happens outside the `moodle` directory.  
