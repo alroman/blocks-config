@@ -25,7 +25,7 @@ That will use the dependencies from Ruby 1.9.3 for that particular project only.
 
 ### Node.js
 
-This also can be installed from your repo, or you can build it directly from source.  For Ubuntu users, this is the recommended way:
+This also can be installed from your repo, or you can build it directly from source.  General instructions can be found here: https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager.  For Ubuntu users, this is the recommended way:
 
 ```sh
 sudo apt-get update
