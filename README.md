@@ -18,7 +18,8 @@ Follow the setup instructions and modify your `.bashrc` as directed.
 RVM allows you to setup projects with different version of Ruby.  To track these dependencies you can use an `.rvmrc` project file.  RVM can do this for you automatically.  If you're developing from vagrant image, then go to your `~/projects/moodle20/` folder and run this command:
 
 ```sh
-$ rvm --rvmc --create 1.9.3@moodle-sass
+$ rvm install ruby-1.9.3
+$ rvm --rvmrc --create 1.9.3@moodle-sass
 ```
 
 That will use the dependencies from Ruby 1.9.3 for that particular project only.  The next time you revisit that folder, you will probably be prompted by RVM for permission to use the ```.rvmrc``` file.  
